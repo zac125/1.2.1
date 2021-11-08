@@ -57,10 +57,28 @@ box.left(45)
 box.pendown()
 box.circle(25,360,4)
 
+font_setup = ("Arial", 20, "normal")
+timer = 30
+counter_interval = 1000   #1000 represents 1 second
+timer_up = False
+counter =  trtl.Turtle()
+counter.penup()
+counter.goto(75,225)
+counter.pendown()
+def countdown():
+  global timer, timer_up
+  counter.clear()
+  if timer <= 0:
+    counter.write("Time's Up", font=font_setup)
+    timer_up = True
+  else:
+    counter.write(" " + str(timer), font=font_setup)
+    timer -= 1
+    counter.getscreen().ontimer(countdown, counter_interval) 
 
 #-----events----------------
 bob.onclick(bob_clicked)
 wn = trtl.Screen()
+wn.ontimer(countdown, counter_interval) 
 wn.mainloop()
-
 
